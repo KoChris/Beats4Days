@@ -1,0 +1,6 @@
+
+ Index  Count  Time of first Occurrence    Time of last Occurrence     Exception SourceId ProbeId
+------+------+---------------------------+---------------------------+---------------------------
+     0      1   10/11/14 13:19:10:478 EDT   10/11/14 13:19:10:478 EDT com.ibm.wsspi.channelfw.exception.ChannelException com.ibm.ws.tcpchannel.internal.SocketRWChannelSelector 186
+                                                                            - C:\Users\Chris\Documents\GitHub\Beats4Days\WorklightServerConfig\servers\worklight\logs\ffdc\ffdc_14.10.11_13.19.10.0.log
+------+------+---------------------------+---------------------------+---------------------------

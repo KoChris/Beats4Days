@@ -1,0 +1,64 @@
+------Start of DE processing------ = [10/11/14 13:19:10:481 EDT]
+Exception = com.ibm.wsspi.channelfw.exception.ChannelException
+Source = com.ibm.ws.tcpchannel.internal.SocketRWChannelSelector
+probeid = 186
+Stack Dump = com.ibm.wsspi.channelfw.exception.ChannelException: TCP Channel detected a possible loop on thread: Inbound Write Selector.1
+	at com.ibm.ws.tcpchannel.internal.ChannelSelector.run(ChannelSelector.java:199)
+	at java.lang.Thread.run(Unknown Source)
+
+Dump of callerThis
+Object type = com.ibm.ws.tcpchannel.internal.SocketRWChannelSelector
+  strings[0] = "Inbound Write Selector.1"
+  strings[1] = "quit: false"
+  strings[2] = "waitingToQuit: false"
+  strings[3] = "# of keys=2"
+  strings[4] = "Exception Occurred Gathering Dump Data: java.nio.channels.CancelledKeyException"
+
+Dump of objectArray[0]
+Object type = java.lang.String
+  String value = "Last FFDC time=0"
+
+Dump of objectArray[1]
+Object type = java.lang.String
+  String value = "Current time=1413047950139"
+
+Dump of objectArray[2]
+Object type = java.lang.String
+  String value = "Next timeout time=1413047979459"
+
+Dump of objectArray[3]
+Object type = java.lang.String
+  String value = "First empty select time=1413047950139"
+
+Dump of objectArray[4]
+Object type = java.lang.String
+  String value = "First empty select keys=2"
+
+Dump of objectArray[5]
+Object type = java.lang.String
+  String value = "Number empty selects=20"
+
+Dump of objectArray[6]
+Object type = java.lang.String
+  String value = "Thread interrupted=false"
+
+Dump of objectArray[7]
+Object type = java.util.LinkedList
+  header = class java.util.LinkedList$Entry@3cdfc11c
+    element = null
+    next = class java.util.LinkedList$Entry@3cdfc11c
+    previous = class java.util.LinkedList$Entry@3cdfc11c
+  size = 0
+  serialVersionUID = 876323262645176354
+  modCount = 8
+
+Dump of objectArray[8]
+Object type = java.util.LinkedList
+  header = class java.util.LinkedList$Entry@767a7c48
+    element = null
+    next = class java.util.LinkedList$Entry@767a7c48
+    previous = class java.util.LinkedList$Entry@767a7c48
+  size = 0
+  serialVersionUID = 876323262645176354
+  modCount = 12
+

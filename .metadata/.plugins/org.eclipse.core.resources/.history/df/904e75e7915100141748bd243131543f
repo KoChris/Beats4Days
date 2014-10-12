@@ -1,0 +1,57 @@
+function wlCommonInit(){
+	/*
+	 * Use of WL.Client.connect() API before any connectivity to a Worklight Server is required. 
+	 * This API should be called only once, before any other WL.Client methods that communicate with the Worklight Server.
+	 * Don't forget to specify and implement onSuccess and onFailure callback functions for WL.Client.connect(), e.g:
+	 *    
+	 *    WL.Client.connect({
+	 *    		onSuccess: onConnectSuccess,
+	 *    		onFailure: onConnectFailure
+	 *    });
+	 *     
+	 */
+	
+	// Common initialization code goes here
+	
+}
+
+var bpm = 60;
+var bms = bpm/60;
+
+/*
+ * this schedules the note
+ */
+function tick(time) {
+	tickOsci = context.createOscillator(); // Create sound source
+	tickOsci.connect(context.destination); // Connect sound to speakers
+	tickOsci.start(time);
+	tickOsci.stop(time+0.25);
+}
+
+/*
+ * This is the scheduler.
+ */
+function playNotes(){
+	console.log("starting to tick);
+	var lastTick = 0;
+	var tickCount = 0;
+	
+	context = new AudioContext();
+	tickDelay = 1;
+	
+	/*tick(0);
+	tick(1);
+	tick(2);
+	tick(3);*/
+	while((context.currentTime - lastTick) == tickDelay) {
+		console.log("tick"+tickCount);
+		tick(context.currentTime + tickDelay);
+		lastTick = context.currentTime;
+		tickCount++;
+	}
+	
+	
+}
+
+
+
