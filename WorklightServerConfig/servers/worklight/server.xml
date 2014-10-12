@@ -132,8 +132,6 @@
 	... Worklight Console settings END
 -->
 
-    <application id="_MobileBrowserSimulator" location="_MobileBrowserSimulator.war" name="_MobileBrowserSimulator" type="war"/>
-
     <application context-root="/_analytics" id="_analytics" location="_analytics.war" name="_analytics" type="war">
         <classloader delegation="parentLast"/>
     </application>
@@ -154,4 +152,6 @@
         <fileset dir="C:\Users\Chris\Documents\GitHub\Beats4Days\WorklightServerConfig\shared\resources" includes="worklight-jee-library-6.2.0.jar"/>
         <fileset dir="${wlp.install.dir}/lib" includes="com.ibm.ws.crypto.passwordutil*.jar"/>
     </library>
+
+    <application id="_MobileBrowserSimulator" location="_MobileBrowserSimulator.war" name="_MobileBrowserSimulator" type="war"/>
 </server>

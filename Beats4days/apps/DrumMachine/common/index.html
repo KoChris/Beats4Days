@@ -11,13 +11,30 @@
     		<link rel="stylesheet" href="css/main.css">
     		<script>window.$ = window.jQuery = WLJQ;</script>
     	</head>
-    	<body style="display: none;">
+    	<body id="body" style="display: none;" >
     		<!--application UI goes here-->
     		
-    		<button type="button" onclick="startMetronome()"> PUT THE HORSES IN THE STABLE </button>
-    		<button type="button" onclick="playNotes()"> tick </button>
+    		<button type="button" onclick="addNoteButton()"> PUT THE HORSES IN THE STABLE </button>
+    		<select name="list" id="freqList">
+				<option value="260">Middle C</option>
+				<option value="293">D</option>
+				<option value="330">E</option>
+				<option value="349">F</option>
+				<option value="391">G</option>
+				<option value="440">A</option>
+				<option value="493">B</option>
+				<option value="523">C</option>
+			</select>
+			
+			<br>
+			<button type="button" onclick="removeNotes()"> Get this shit outta here </button>
+    		
+    		<br>
+    		<button type="button" onclick="startMetronome()"> tick </button>
     		
 			<select name="list" id="bpmList">
+				<option value="20">20bpm</option>
+				<option value="40">40bpm</option>
 				<option value="60">60bpm</option>
 				<option value="80">80bpm</option>
 				<option value="100">100bpm</option>
@@ -25,6 +42,12 @@
 			</select>
     		
     		<button type="button" onclick="setBpm()"> Set BPM </button>
+    		
+    		<br>
+    		<button type="button" onclick="toggleSound('tick')"> Toggle Tick </button>
+    		<button type="button" onclick="toggleSound('melody')"> Toggle Melody </button>
+    		<button type="button" onclick="toggleSound('bass')"> Toggle Bass </button>
+
     		
     		<script src="js/initOptions.js"></script>
     		<script src="js/main.js"></script>

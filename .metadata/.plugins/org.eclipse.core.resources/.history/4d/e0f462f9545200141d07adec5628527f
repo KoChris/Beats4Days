@@ -1,0 +1,205 @@
+	function wlCommonInit(){
+		/*
+		 * Use of WL.Client.connect() API before any connectivity to a Worklight Server is required. 
+		 * This API should be called only once, before any other WL.Client methods that communicate with the Worklight Server.
+		 * Don't forget to specify and implement onSuccess and onFailure callback functions for WL.Client.connect(), e.g:
+		 *    
+		 *    WL.Client.connect({
+		 *    		onSuccess: onConnectSuccess,
+		 *    		onFailure: onConnectFailure
+		 *    });
+		 *     
+		 */
+		
+		// Common initialization code goes here
+		
+	}
+	
+	var bpm = 60.0;
+	var nextTickTime = 0.0;
+	var rhythmIndex = 0;
+	
+	var melodyVoices = new Array();
+	
+	var keyPressed = 0;
+	var isKeyPressed = false;
+	
+	//document.getElementById('body').onkeydown= handleKeyDown;
+	//document.getElementById('body').onkeyup= handleKeyDown;
+	document.getElementById('body').onkeypress= handleKeyDown;
+	
+	function handleKeyDown(e) {
+		e = e || event;
+		
+		if (document.forms.keyform[e.type + 'Ignore'].checked) return
+		
+		isKeyPressed = true;
+		
+		keyPressed = e.which;
+		
+		switch(keyPressed) {
+		case 113:
+			addMelodyNote(260);
+			console.log(keyPressed);
+		case 119:
+			addMelodyNote(330);
+			console.log(keyPressed);
+		case 101:
+			addMelodyNote(391);
+			console.log(keyPressed);
+		case 114:
+			addMelodyNote(523);
+			console.log(keyPressed);
+		
+		}
+		
+		
+	}
+	
+	function handleKeyUp() {
+		isKeyPressed = false;
+	}
+	
+	function timer() {
+		
+		return 5; 
+	}
+	
+	/*
+	 * Used to set bpm form select form
+	 */
+	function setBpm() {
+		userBPM = document.getElementById('bpmList').value;
+		bpm = userBPM;
+	}
+	
+	/*
+	 * This starts the metronome and repeats the scheduler function
+	 */
+	function startMetronome(){
+		console.log("THIS IS STARTING TO TICK ME OFF");
+		context = new AudioContext();
+		nextTickTime = 0.0;
+		
+		setInterval("scheduler()", 20);
+		setInterval("realTimeNote()", 20);
+	}
+	
+	function realTimeNote() {
+		realNote = context.createOscillator();
+		realNote.connect(context.destination);
+		
+		realNote.frequency.value = keyToFrequency(keyPressed);
+		
+		
+		if(isKeyPressed) {
+			
+		}
+	}
+	
+	function keyToFrequency (note) {
+		return 440 * Math.pow(2,(note-69)/12);
+	}
+	
+	/*
+	 * This function is checks if the next note to be played
+	 * is within 0.1s of the current time, if so, it will schedule
+	 * the note to be played.
+	 */
+	function scheduler() {
+		while(nextTickTime < (context.currentTime + 0.1)) {
+			if (rhythmIndex == 8) {
+				rhythmIndex = 0;
+			}
+			
+			playMetronome(rhythmIndex);
+			playMelody(rhythmIndex);
+			
+			
+			nextTick();
+			
+			rhythmIndex++;
+
+		}
+	}
+	
+	function removeNotes() {
+		melodyVoices[rhythmIndex-1] = 0;
+	}
+	
+	function addNoteButton() {
+		noteFreq = document.getElementById('freqList').value;
+		addMelodyNote(noteFreq);
+	}
+	
+	function addMelodyNote(uFreq) {
+		melodyVoices[rhythmIndex-1] = new voice();
+		melodyVoices[rhythmIndex-1].frequency = uFreq;
+		melodyVoices[rhythmIndex-1].type = 1;
+	}
+	
+	function playMelody(currentNote) {
+		playNote( nextTickTime, melodyVoices[currentNote] );
+	}
+	
+	/*
+	 * A general function used to play notes
+	 */
+	function playNote(noteTime, voice) {
+		if(voice) {
+			note = context.createOscillator();
+			note.connect(context.destination);
+			
+			note.frequency.value = voice.frequency;
+			
+			note.start(noteTime);
+			note.stop(noteTime+0.15);
+		}
+	}
+
+	
+	/*
+	 * A voice class that will be used by all
+	 * melodic instruments to hold note values
+	 */
+	function voice() {
+		this.frequency = 261;
+	}
+	
+	/*
+	 * This function schedules a ticks and calculates
+	 * when the next tick is to be played
+	 */
+	function playMetronome(currentNote) {
+			console.log("tick");
+			tick(nextTickTime, currentNote);
+	}
+		
+	/*
+	 * This function sets the tick to play at a given time
+	 */
+	function tick(time, currentNote) {
+		tickOsci = context.createOscillator(); // Create sound source
+		tickOsci.connect(context.destination); // Connect sound to speakers
+		
+		if(currentNote%8 == 0) {
+			tickOsci.frequency.value = 880.0;
+		}
+		else if(currentNote%4 == 0) {
+			tickOsci.frequency.value = 660.0;
+		}
+		else {
+			tickOsci.frequency.value = 440.0;
+		}
+		
+		tickOsci.start(time);
+		tickOsci.stop(time+0.15);
+	}
+
+	/*
+	 * This method will calculate when the next tick is due to play
+	 */
+	function nextTick() {	
+		tickDelay = 60/bpm;
+		nextTickTime += 0.5*tickDelay;
+	}

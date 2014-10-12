@@ -1,0 +1,135 @@
+	function wlCommonInit(){
+		/*
+		 * Use of WL.Client.connect() API before any connectivity to a Worklight Server is required. 
+		 * This API should be called only once, before any other WL.Client methods that communicate with the Worklight Server.
+		 * Don't forget to specify and implement onSuccess and onFailure callback functions for WL.Client.connect(), e.g:
+		 *    
+		 *    WL.Client.connect({
+		 *    		onSuccess: onConnectSuccess,
+		 *    		onFailure: onConnectFailure
+		 *    });
+		 *     
+		 */
+		
+		// Common initialization code goes here
+		
+	}
+	
+	var bpm = 60.0;
+	var nextTickTime = 0.0;
+	var rhythmIndex = 0;
+	
+	var melodyVoices = new Array();
+	
+	/*
+	 * Used to set bpm form select form
+	 */
+	function setBpm() {
+		userBPM = document.getElementById('bpmList').value;
+		bpm = userBPM;
+	}
+	
+	/*
+	 * This starts the metronome and repeats the scheduler function
+	 */
+	function playNotes(){
+		console.log("THIS IS STARTING TO TICK ME OFF");
+		context = new AudioContext();
+		nextTickTime = 0.0;
+		melodyVoices[6] = new voice();
+		
+		setInterval("scheduler()", 20);
+	}
+	
+	/*
+	 * This function is checks if the next note to be played
+	 * is within 0.1s of the current time, if so, it will schedule
+	 * the note to be played.
+	 */
+	function scheduler() {
+		while(nextTickTime < (context.currentTime + 0.1)) {
+			
+			playMetronome(rhythmIndex);
+			playMelody(rhythmIndex);
+			
+			
+			nextTick();
+			
+			rhythmIndex++;
+			if (rhythmIndex == 8) {
+				rhythmIndex = 0;
+			}
+		}
+	}
+	
+	function addMelodyNote() {
+		melodyVoices[rhythmIndex-1] = new voice();
+		
+		noteFreq = document.getElementById('freqList').value;
+		melodyVoices[rhythmIndex-1].frequency = noteFreq;
+	}
+	
+	function playMelody(currentNote) {
+		playNote( nextTickTime, melodyVoices[currentNote] );
+	}
+	
+	/*
+	 * A general function used to play notes
+	 */
+	function playNote(noteTime, voice) {
+		if(voice) {
+			note = context.createOscillator();
+			note.connect(context.destination);
+			
+			note.frequency.value = voice.frequency;
+			
+			note.start(noteTime);
+			note.stop(noteTime+0.15);
+		}
+	}
+	
+	/*
+	 * A voice class that will be used by all
+	 * melodic instruments to hold note values
+	 */
+	function voice() {
+		this.frequency = 220;
+	}
+	
+	/*
+	 * This function schedules a ticks and calculates
+	 * when the next tick is to be played
+	 */
+	function playMetronome(currentNote) {
+			console.log("tick");
+			tick(nextTickTime, currentNote);
+	}
+		
+	/*
+	 * This function sets the tick to play at a given time
+	 */
+	function tick(time, currentNote) {
+		tickOsci = context.createOscillator(); // Create sound source
+		tickOsci.connect(context.destination); // Connect sound to speakers
+		
+		if(currentNote%8 == 0) {
+			tickOsci.frequency.value = 880.0;
+		}
+		else if(currentNote%4 == 0) {
+			tickOsci.frequency.value = 660.0;
+		}
+		else {
+			tickOsci.frequency.value = 440.0;
+		}
+		
+		tickOsci.start(time);
+		tickOsci.stop(time+0.15);
+	}
+
+	/*
+	 * This method will calculate when the next tick is due to play
+	 */
+	function nextTick() {	
+		tickDelay = 60/bpm;
+		nextTickTime += 0.5*tickDelay;
+	}

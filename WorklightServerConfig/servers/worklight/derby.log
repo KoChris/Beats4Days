@@ -1,16 +1,10 @@
 ----------------------------------------------------------------
-Sat Oct 11 13:24:04 EDT 2014:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.8.2.2 - (1181258): instance a816c00e-0149-003d-19cf-00001455a6c8 
-on database directory C:\Users\Chris\Documents\GitHub\Beats4Days\WorklightServerConfig\shared\resources\derbyDB\WLADMIN  with class loader com.ibm.ws.classloading.internal.AppClassLoader@4becf45d 
+Sun Oct 12 09:01:37 EDT 2014:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.8.2.2 - (1181258): instance a816c00e-0149-0473-2dc4-000009b0d838 
+on database directory C:\Users\Chris\Documents\GitHub\Beats4Days\WorklightServerConfig\shared\resources\derbyDB\WLADMIN  with class loader com.ibm.ws.classloading.internal.AppClassLoader@fce3c63 
 Loaded from null
 java.vendor=Sun Microsystems Inc.
 java.runtime.version=1.6.0_24-b07
 user.dir=C:\Users\Chris\Documents\GitHub\Beats4Days\WorklightServerConfig\servers\worklight
 derby.system.home=null
 Database Class Loader started - derby.database.classpath=''
-----------------------------------------------------------------
-Sat Oct 11 19:06:14 EDT 2014:
-Shutting down instance a816c00e-0149-003d-19cf-00001455a6c8 on database directory C:\Users\Chris\Documents\GitHub\Beats4Days\WorklightServerConfig\shared\resources\derbyDB\WLADMIN with class loader com.ibm.ws.classloading.internal.AppClassLoader@4becf45d 
-----------------------------------------------------------------
-Sat Oct 11 19:06:14 EDT 2014: Shutting down Derby engine
-----------------------------------------------------------------
